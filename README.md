@@ -77,26 +77,24 @@ The BMP390 has an interrupt pin that can be configured to trigger on various eve
 
 The BMP390 has a FIFO buffer that can store up to 512 bytes of data. The FIFO can be configured to store pressure and temperature data, and can be set to trigger an interrupt when a certain number of bytes are stored in the FIFO (watermark). This allows for efficient data collection without the need for constant polling of the sensor. See the SPI_Normal_FIFO and I2C_Normal_FIFO examples for how to use the FIFO feature.
 
-The calculation for the interupt time is:
+The calculation for the interrupt time is:
 
 1. Size of FIFO Buffer = 512 bytes
 2. Bytes per frame = 7 bytes
 3. Frame-watermark is defined by user in example file
-4. ODR_period is defined by the ODR set, the available values are in datasheet or ODR_e enum.
-default 20mS
+4. ODR period is defined by the ODR set, the available values are in datasheet or ODR-e enum. default 20mS
+5. Max frames = Size Of FIFO/bytes per frame
+6. Frame watermark/bytes per frame = frames per_read
+7. Interrupt time = frames per_read * ODR period.
 
-Max_frames = Size_Of_FIFO/bytes per frame = 73.14
-Frame_watermark/bytes per frame = frames_per_read
-Interupt time = frames_per_read * ODR_period.
-
-| Example file | ODR period | Frame_watermark | interupt time |
+| Example file | ODR period | Frame_watermark | interrupt time |
 | ---- | --- | --- | --- |
 | I2C_Normal_FIFO | ODR_3_1_Hz 320 mS | 200 | 9.14 S |
 | SPI_Normal_FIFO | ODR_1_5_Hz 640 mS | 35 | 3.20 S |
 
 ## Connections
 
-The Sensor uses SPI or I2C for communication with theMCU.
+The Sensor uses SPI or I2C for communication with the MCU.
 By default the sensor is 3.3 volts.
 Some BMP390 breakout modules boards can be powered off 5 Volts.
 Check your module specifications before connecting to 5V.
@@ -133,7 +131,7 @@ I2C baud rate and port can be adjusted. The BMP390 has a CS pin which can be con
 
 ## Debug Mode
 
-Setting BMP390_DEBUG to 1 in the header file will enable verbose debug output during development. This can help with troubleshooting and understanding the sensor's behavior. When BMP390_DEBUG is set to 0, the library will operate in normal mode with less verbose output.
+Setting BMP390 DEBUG to 1 in the header file will enable verbose debug output during development. This can help with troubleshooting and understanding the sensor's behavior. When BMP390 DEBUG is set to 0, the library will operate in normal mode with less verbose output.
 
 ## Output
 
