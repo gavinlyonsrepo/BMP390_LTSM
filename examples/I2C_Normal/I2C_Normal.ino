@@ -12,10 +12,8 @@
 
 // I2C setup
 uint8_t  I2C_ADDRESS    =  0x76;  // I2C address: 0x76 SDO connected to GND, 0x77 SDO connected to VCC
-uint8_t  I2C_SDA_PIN    =  21;    // I2C Data pin
-uint8_t  I2C_SCK_PIN    =  22;    // I2C clock pin
 uint32_t I2C_CLOCK_RATE =  25000; // I2C Clock rate in hertz
-BMP390_Sensor bmp390(I2C_ADDRESS, &Wire, I2C_SCK_PIN, I2C_SDA_PIN, I2C_CLOCK_RATE);
+BMP390_Sensor bmp390(I2C_ADDRESS, &Wire, I2C_CLOCK_RATE);
 // Local Pressure , Replace with today's QNH from forecast [hPa]
 #define LOCAL_PRESSURE  1025.25   
 

@@ -14,7 +14,6 @@
 
 #include "Wire.h"
 #include <SPI.h>
-#include <cmath>
 
 /*! Set to 1 for verbose debug output during development, 0 for normal operation
     38400 baud  Enable debug messages */
@@ -30,7 +29,7 @@ class BMP390_Sensor
 {
 public:
 	BMP390_Sensor(uint8_t csPin, uint32_t speedSPIHz); 
-	BMP390_Sensor(uint8_t I2Caddress, TwoWire *twi, uint8_t SCLKpin, uint8_t SDATApin, uint32_t i2cClock);	
+	BMP390_Sensor(uint8_t I2Caddress, TwoWire *twi, uint32_t i2cClock);	
 	~BMP390_Sensor();
 
 	/*! @brief Communications mode */
@@ -296,8 +295,6 @@ private:
 	// I2C
 	uint8_t _address;   /**< I2C address */
 	TwoWire *wire;      /**< I2C wire interface */
-	uint8_t  _SCK_I2C_Pin;       /**< I2C clock pin */
-	uint8_t  _SDATA_I2C_Pin;     /**< I2C clock pin */
 	uint32_t _I2C_clock = 50000; /**< I2C clock speed in hertz */
 	// SPI
 	static constexpr uint8_t _SPI_READ_MASK  = 0x80; /**< Bit 7 set for SPI read */

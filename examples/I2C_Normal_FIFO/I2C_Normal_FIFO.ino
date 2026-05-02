@@ -18,11 +18,9 @@
 
 // ---- I2C setup ----
 uint8_t  I2C_ADDRESS    = 0x76;   // 0x76 = SDO LOW, 0x77 = SDO HIGH
-uint8_t  I2C_SDA_PIN    = 21;     // I2C Data pin
-uint8_t  I2C_SCK_PIN    = 22;     // I2C Clock pin
 uint32_t I2C_CLOCK_RATE = 50000;  // I2C clock rate in Hz (see notes on 25kHz if issues)
 
-BMP390_Sensor bmp390(I2C_ADDRESS, &Wire, I2C_SCK_PIN, I2C_SDA_PIN, I2C_CLOCK_RATE);
+BMP390_Sensor bmp390(I2C_ADDRESS, &Wire, I2C_CLOCK_RATE);
 
 // ---- INT pin ----
 #define INT_PIN  4

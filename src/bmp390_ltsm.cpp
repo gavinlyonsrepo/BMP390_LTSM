@@ -19,15 +19,11 @@ BMP390_Sensor::BMP390_Sensor(uint8_t csPin, uint32_t speedSPIHz ) {
 	@brief Constructor I2C mode.
 	@param address I2C address of the sensor.
 	@param twi Pointer to the TwoWire instance for I2C communication.
-	@param SCLKpin I2C clock pin number
-	@param SDATApin I2cCdata pin number
 	@param i2cClock I2C clock speed in hertz (default 50000).
 */
-BMP390_Sensor::BMP390_Sensor(uint8_t address, TwoWire *twi, uint8_t SCLKpin, uint8_t SDATApin, uint32_t i2cClock){
+BMP390_Sensor::BMP390_Sensor(uint8_t address, TwoWire *twi, uint32_t i2cClock){
 	_address  = address;
 	wire = twi;
-	_SCK_I2C_Pin = SCLKpin;
-	_SDATA_I2C_Pin = SDATApin;
 	_I2C_clock = i2cClock;
 	_commMode = CommMode_e::I2C;
 }
@@ -43,7 +39,8 @@ bool BMP390_Sensor::InitSensor(void)
 	if (_commMode == CommMode_e::I2C)
 	{
 			int I2CReturnCode= 0;
-			wire->begin(_SDATA_I2C_Pin, _SCK_I2C_Pin, _I2C_clock);
+			wire->begin();
+			wire->setClock(_I2C_clock);
 			wire->beginTransmission(_address);
 			I2CReturnCode = wire->endTransmission();
 			if (I2CReturnCode!= 0)
